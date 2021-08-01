@@ -1,0 +1,43 @@
+<header class="desktop">
+    <nav class="container">
+        <ul>
+            <li><img src="/assets//static/images/logo.png" alt="logo" class="desktop-logo" routerLink="/"></li>
+            <li><a href="javscript:void(0)" routerLink="/home" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+            <li><a href="javscript:void(0)" routerLink="/products" routerLinkActive="active">Products</a></li>
+        </ul>
+        <div class="login">
+            <ul>
+                <li><a href="javscript:void(0)" routerLink="/login" routerLinkActive="active">Sign In</a></li>
+                <li><a href="javscript:void(0)" routerLink="/register" routerLinkActive="active">Register</a></li>
+            </ul>
+        </div>
+        <div>
+            <button class="cart-btn" (click)="openCart()">
+                <img class="cart-logo" src="/assets//static/images/cart.svg" alt="Cart Logo" aria-label="Cart Logo">
+                <span>{{itemCount}} {{itemCount ? 'items' : 'item'}} </span>
+            </button>
+        </div>
+    </nav>
+</header>
+<header class="mobile">
+    <nav class="container__mobile">
+        <img src="/assets//static/images/logo.png" alt="logo" class="desktop-logo" routerLink="/">
+        <div>
+            <button class="cart-btn" (click)="openCart()">
+                <img class="cart-logo" src="/assets//static/images/cart.svg" alt="Cart Logo" aria-label="Cart Logo">
+                <span>{{itemCount}} {{itemCount ? 'items' : 'item'}} </span>
+            </button>
+        </div>
+        <button class="menu" aria-label="Menu Icon" class="menu__list-btn" (click)="toggleMenuList()">
+            <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+        </button>
+
+    </nav>
+</header>
+<ul class="menu__list" *ngIf="showMenuFlag">
+    <li><a href="javscript:void(0)" routerLink="/home" routerLinkActive="active">Home</a></li>
+    <li><a href="javscript:void(0)" routerLink="/products" routerLinkActive="active">Products</a></li>
+    <li><a href="javscript:void(0)" routerLink="/login" routerLinkActive="active">Sign In</a></li>
+    <li><a href="javscript:void(0)" routerLink="/register" routerLinkActive="active">Register</a></li>
+</ul>

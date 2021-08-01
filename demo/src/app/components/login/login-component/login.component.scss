@@ -1,0 +1,89 @@
+@import "../../../../assets/scss/variables";
+
+.login {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+.login-content {
+  margin: 2em 5em 0 5em;
+  p {
+    color: $secondaryTextColor;
+  }
+}
+.btn-login {
+  background-color: $themeColor;
+  color: $fontColor;
+  font-size: $fontSize;
+  padding: 1rem;
+  display: block;
+  width: 100%;
+  font-family: $fontFamily;
+  font-size: 120%;
+}
+
+form {
+  padding: 0 5em;
+  input {
+    display: block;
+    border: none;
+    outline: none;
+    font-size: 110%;
+    width: 100%;
+    border-bottom: 2px solid rgb(107, 106, 106);
+    padding-bottom: 1em;
+  }
+  input.ng-valid {
+    border-bottom: 2px solid rgba(0, 128, 0, 0.637);
+  }
+  input:focus {
+    border-bottom: 2px solid rgb(88, 180, 255);
+  }
+  .input-class {
+    margin: 2em 0;
+    position: relative;
+    .floating-label {
+      position: absolute;
+      top: 30%;
+      pointer-events: none;
+      -webkit-transition: 0.2s ease all;
+      -o-transition: 0.2s ease all;
+      transition: 0.2s ease all;
+      color: rgb(88, 180, 255);
+    }
+  }
+}
+.login-form {
+  width: 40em;
+}
+
+.input-class input:focus ~ label,
+.input-class input:not(:focus):valid ~ label,
+input:not(:placeholder-shown) ~ label {
+  top: -19px;
+  font-size: 95%;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+button:enabled {
+  cursor: pointer;
+}
+
+.error {
+  color: $themeColor;
+}
+
+@media screen and (max-width: 768px) {
+  .login {
+    flex-direction: column;
+  }
+  .login-form {
+    width: auto;
+  }
+  .login-content {
+    align-self: center;
+    text-align: center;
+  }
+}

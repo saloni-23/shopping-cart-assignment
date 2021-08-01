@@ -1,0 +1,26 @@
+<section>
+    <div class="carousel">
+        <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let img of imageArray">
+                <div class="carousel-card picsum-img-wrapper" *ngIf="img?.isActive">
+                    <img [src]="imageURLPrefix + img?.bannerImageUrl" [alt]="img?.bannerImageAlt">
+                </div>
+            </ng-template>
+        </ngb-carousel>
+    </div>
+</section>
+<section>
+    <ng-container *ngFor="let data of categoryArray">
+        <div class="list-card" *ngIf="data?.enabled">
+            <div class="list-img">
+                <img [src]="imageURLPrefix+data?.imageUrl" [alt]="data?.name">
+            </div>
+            <div class="list-content">
+                <h3>{{data?.name}}</h3>
+                <p>{{data?.description}}</p>
+                <a class="btn" href="javascript:void(0)" [routerLink]="['/products',data?.id]">Explore
+                    {{data?.name}}</a>
+            </div>
+        </div>
+    </ng-container>
+</section>

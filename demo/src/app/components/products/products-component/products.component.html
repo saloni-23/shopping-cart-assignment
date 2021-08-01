@@ -1,0 +1,44 @@
+<div class="main-container">
+    <aside>
+        <ul class="nav__list_desktop">
+            <ng-container *ngFor="let item of categoryArray">
+                <li *ngIf="item?.enabled" [ngClass]="{'active-tab' : item?.id === this.selectedCategoryId}"
+                    [routerLink]="['/products',item?.id]">{{item?.name}}</li>
+            </ng-container>
+        </ul>
+    </aside>
+    <header>
+        <select class="nav__list_mobile" id="category-menu" name="category-menu" [(ngModel)]="selectedCategoryName.id"
+            (ngModelChange)="selectCategory($event)">
+            <option value="" selected [disabled]=true>Select from category</option>
+            <ng-container *ngFor="let item of categoryArray">
+                <option *ngIf="item?.enabled" [ngValue]="item?.id"> {{item?.name}} </option>
+            </ng-container>
+        </select>
+    </header>
+    <main class="product-list">
+        <div class="col-i span_1_of_3" *ngFor="let data of filteredArray">
+            <div class="product-heading">
+                <h4>{{data?.name}}</h4>
+            </div>
+            <div class="product-img">
+                <div class="i">
+                    <img [src]="imageURLPrefix+data?.imageURL" [alt]="data?.name">
+                </div>
+                <div class="product-content">
+                    <p>{{data?.description}}
+                    </p>
+                </div>
+            </div>
+            <div class="product-price"><span class="price__text">MRP Rs.{{data?.price}}
+                </span>
+                <button type="submit" class="btn btn-submit price__btn" (click)="addItemToCart(data)">Buy Now @
+                    Rs.{{data?.price}}</button>
+            </div>
+            <div class="product-price__tab">
+                <button type="submit" class="btn btn-submit price__btn" (click)="addItemToCart(data)">Buy Now @
+                    Rs.{{data?.price}}</button>
+            </div>
+        </div>
+    </main>
+</div>

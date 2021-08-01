@@ -1,0 +1,59 @@
+@import "../../../../assets/scss/variables";
+img {
+  width: 100%;
+}
+.list-card {
+  padding: 1rem;
+  display: flex;
+  margin: 0.75rem 0;
+  text-align: center;
+  box-shadow: 0 0.5rem 0.2rem -0.4rem #80808080;
+  p {
+    margin: 1rem;
+  }
+  a {
+    display: inline-block;
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: $themeColor;
+    color: white;
+  }
+  a:hover {
+    transition: zoom 0.1s;
+  }
+}
+
+.list-img {
+  margin: auto;
+  width: 35%;
+}
+
+.list-content {
+  margin: 3rem 0;
+  width: 65%;
+}
+
+.list-card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+@media only screen and (max-width: 400px) {
+  .list-card {
+    font-size: 12px;
+    margin: 0;
+  }
+  .list-content {
+    margin: 0;
+  }
+  section {
+    margin: 0;
+  }
+}
+@media only screen and (max-width: 960px) {
+  .list-card {
+    font-size: 12px;
+    margin: 0.2rem 0;
+  }
+  section {
+    margin: 0.2rem;
+  }
+}

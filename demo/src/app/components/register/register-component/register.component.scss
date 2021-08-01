@@ -1,0 +1,88 @@
+@import "../../../../assets/scss/variables";
+.register {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+.signup-content {
+  margin: 2em 5em 0 5em;
+  p {
+    color: $secondaryTextColor;
+  }
+}
+.signup-form {
+  margin: 0 2em;
+  width: 40%;
+  form {
+    input {
+      display: block;
+      outline: none;
+      border: none;
+      font-size: 110%;
+      border-bottom: 2px solid rgb(107, 106, 106);
+      width: 100%;
+      padding-bottom: 1em;
+    }
+
+    input.ng-valid {
+      border-bottom: 2px solid rgba(0, 128, 0, 0.637);
+    }
+
+    input:focus {
+      border-bottom: 2px solid rgb(173, 196, 230);
+    }
+  }
+}
+.input-class {
+  margin: 2em 0;
+  position: relative;
+  .floating-label {
+    position: absolute;
+    top: 30%;
+    pointer-events: none;
+    -webkit-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    transition: 0.2s ease all;
+    color: rgb(88, 180, 255);
+  }
+}
+.input-class input:focus ~ label,
+.input-class input:not(:focus):valid ~ label,
+input:not(:placeholder-shown) ~ label {
+  top: -19px;
+  font-size: 95%;
+}
+
+.signup {
+  background-color: $themeColor;
+  color: $fontColor;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-family: $fontFamily;
+  font-size: 120%;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+button:enabled {
+  cursor: pointer;
+}
+
+.error {
+  color: $themeColor;
+}
+@media screen and (max-width: 768px) {
+  .register {
+    flex-direction: column;
+  }
+  .signup-form {
+    width: auto;
+  }
+  .signup-content {
+    align-self: center;
+    text-align: center;
+  }
+}

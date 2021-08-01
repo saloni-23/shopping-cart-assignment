@@ -1,0 +1,238 @@
+@import "../../../../styles.scss";
+.active-tab {
+  background-color: $themeColor;
+  color: white;
+  border-radius: 3px;
+}
+
+.col-i:first-child {
+  margin-left: 0;
+}
+
+.span_1_of_3 {
+  width: 24%;
+  min-height: 50vh;
+}
+
+@media only screen and (max-width: 480px) {
+  .col-i {
+    margin: 1% 0 1% 0%;
+  }
+  .span_1_of_3 {
+    width: 100%;
+  }
+}
+
+div {
+  &.main-container {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+aside {
+  display: none;
+  width: 20%;
+  padding: 1em 0;
+  background: $footerColor;
+  .nav__list_desktop {
+    margin: 0;
+    // padding : 0 1rem;
+    li {
+      list-style-type: none;
+      border-bottom: 1px solid #bfb7b7;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+header {
+  .nav__list_mobile {
+    display: none;
+  }
+}
+.product-list {
+  text-align: center;
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  width: 80%;
+  text-align: left;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  .col-i {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 1rem;
+    border-bottom: 0.5px dashed #adadad;
+    box-shadow: rgb(0 0 0 / 20%) 2px 2px 7px 0px;
+  }
+  .product-heading h4 {
+    margin: 0;
+    font-weight: bold;
+  }
+  .product-img {
+    width: 100%;
+    padding: 0.3rem 0;
+
+    display: flex;
+    flex-direction: column;
+    .i {
+      max-width: 11rem;
+      margin: 0 auto;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .product-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 0.3rem 0;
+    p {
+      width: 100%;
+      font-size: 0.7rem;
+      margin: 0.5rem 0 0 0;
+      padding: 0.2rem;
+      text-align: left;
+      background-color: $footerColor;
+    }
+  }
+  .product-price {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: auto;
+  }
+  .price__btn {
+    margin-left: auto;
+    background-color: $themeColor;
+    color: $fontColor;
+    font-size: 1rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  .product-list {
+    width: 100%;
+  }
+  .product-img {
+    flex-direction: row !important;
+  }
+  .i {
+    width: 44rem;
+  }
+  .span_1_of_3 {
+    width: 49%;
+    justify-content: space-between;
+  }
+  .nav__list_mobile {
+    display: block !important;
+    padding: 0.5rem;
+    width: 100%;
+    font-size: 1;
+    background-color: $themeColor;
+    color: white;
+    option {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  .product-price__tab {
+    display: block;
+  }
+  .product-list {
+    h4 {
+      font-size: $fontSize;
+    }
+    .col-i {
+      gap: 0;
+    }
+    .product-content {
+      p {
+        font-size: 0.8rem;
+        flex: 1;
+      }
+    }
+    .product-price {
+      display: none;
+    }
+  }
+  .price__text {
+    display: none;
+  }
+  .price__btn {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .main-container {
+    flex-direction: row;
+  }
+  .product-price__tab {
+    display: none;
+  }
+  .price__text {
+    display: block;
+  }
+  aside {
+    display: block;
+  }
+  .product-list {
+    h4 {
+      min-height: 4rem;
+      font-size: 1.2rem;
+    }
+  }
+}
+@media only screen and (max-width: 375px) {
+  .span_1_of_3 {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .product-list {
+    font-size: $fontSizeMobile;
+    h4 {
+      font-size: $fontSize;
+    }
+    .col-i {
+      gap: 0;
+    }
+    .product-content {
+      p {
+        font-size: $fontSizeMobile;
+      }
+    }
+    .product-price {
+      padding: 0;
+      display: block;
+      font-size: $fontSizeMobile;
+      .price__btn {
+        font-size: $fontSizeMobile;
+        width: 100%;
+      }
+    }
+  }
+  .product-price__tab {
+    display: none;
+  }
+  .price__text {
+    display: none;
+  }
+}
+@media only screen and (max-width: 900px) and (min-width: 768px) {
+  .span_1_of_3 {
+    width: 32%;
+    justify-content: space-between;
+  }
+}

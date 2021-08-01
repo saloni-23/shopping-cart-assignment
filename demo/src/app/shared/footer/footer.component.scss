@@ -1,0 +1,12 @@
+@import '../../../styles.scss';
+
+footer {
+    background-color: $footerColor;
+    font-size: 80%;
+    margin: 10px 0 0 0;
+    padding: 10px 0;
+    .footer__text{
+        margin : 0;
+        text-align: center;
+    }
+}

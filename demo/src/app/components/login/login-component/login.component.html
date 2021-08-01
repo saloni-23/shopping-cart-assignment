@@ -1,0 +1,39 @@
+<div class="login">
+    <div class="login-content">
+        <h1>Login</h1>
+        <p>Get access to your Orders, Wishlist and Recommendations</p>
+    </div>
+    <div class="login-form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="input-class">
+                <input type="email" formControlName="email" aria-label="email" placeholder=" " required>
+                <label for="email" class="floating-label">Email</label>
+
+                <div class="error" *ngIf="!email?.valid && (email?.dirty ||email?.touched)">
+                    <div [hidden]="!email?.errors?.required">
+                        Email is Required
+                    </div>
+                    <div [hidden]="!email?.errors?.email">
+                        Invalid Email
+                    </div>
+                </div>
+            </div>
+            <div class="input-class">
+                <input type="password" formControlName="password" aria-label="password" placeholder=" " required>
+                <label for="password" class="floating-label">Password</label>
+
+                <div class="error" *ngIf="!password?.valid && (password?.dirty ||password?.touched)">
+                    <div [hidden]="!password?.errors?.required">
+                        Password is Required
+                    </div>
+                    <div [hidden]="!password?.errors?.minlength">
+                        Password should be of minimum 6 length
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="btn submit-btn btn-login" type="submit" [disabled]="!loginForm.valid">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

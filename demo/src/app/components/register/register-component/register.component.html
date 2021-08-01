@@ -1,0 +1,77 @@
+<div class="register">
+    <div class="signup-content">
+        <h1>Signup</h1>
+        <p>We don't share your personal details with anyone.</p>
+    </div>
+    <div class="signup-form">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="input-class">
+        <input type="text" aria-label="firstName" formControlName="firstName" placeholder=" " required>
+        <label for="firstName" class="floating-label">First Name</label>
+       
+        <div  class="error" *ngIf="!firstName?.valid && (firstName?.dirty ||firstName?.touched)">
+            <div [hidden]="!firstName?.errors?.required">
+                First Name is Required
+            </div>
+            <div [hidden]="!firstName?.errors?.minlength">
+                First Name should be of minimum 3 length
+            </div>
+        </div>
+        </div>
+        <div class="input-class">
+        <input type="text" aria-label="lastName" formControlName="lastName" placeholder=" " required>
+        <label for="lastName" class="floating-label">Last Name</label>
+        <div  class="error" *ngIf="!lastName?.valid && (lastName?.dirty ||lastName?.touched)">
+            <div [hidden]="!lastName?.errors?.required">
+                Last Name is Required
+            </div>
+            <div [hidden]="!lastName?.errors?.maxlength">
+                Last Name should be of maximum 16 length
+            </div>
+        </div>
+        </div>
+        <div class="input-class">
+        <input type="email" aria-label="email" formControlName="email" placeholder=" " required>
+        <label for="email" class="floating-label">Email</label>
+               <div  class="error" *ngIf="!email?.valid && (email?.dirty ||email?.touched)">
+                <div [hidden]="!email?.errors?.required">
+                    Email is Required
+                </div>
+                <div [hidden]="!email?.errors?.email">
+                    Email is invalid
+                </div>
+            </div>
+        </div>
+        <div class="input-class">
+        <input type="password" aria-label="password" formControlName="password" placeholder="" required>
+        <label for="password" class="floating-label">Password</label>
+                <div  class="error" *ngIf="!password?.valid && (password?.dirty ||password?.touched)">
+                <div [hidden]="!password?.errors?.required">
+                    Password is Required
+                </div>
+                <div [hidden]="!password?.errors?.pattern">
+                  Password should have Minimum 6 characters & alphanumeric, with atleast one special character:
+                </div>
+            </div>
+</div>
+<div class="input-class">
+            <input type="password" aria-label="password" formControlName="confPassword" placeholder="" required>
+            <label for="confPassword" class="floating-label">Confirm Password</label>
+            <div  class="error" *ngIf="!confPassword?.valid && (confPassword?.dirty ||confPassword?.touched)">
+                <div [hidden]="!confPassword?.errors?.required">
+                    Password is Required
+                </div>
+                <div [hidden]="!confPassword?.errors?.minlength">
+                    Password should be of minimum 6 length
+                </div>
+                <div [hidden]="!confPassword?.errors?.confirmPasswordValidation">
+                    Password & Confirm Password doesn't match.
+                </div>
+            </div>
+</div>
+            <div>
+                <button class="btn submit-btn signup" type="submit" [disabled]="!signUpForm.valid">Signup</button>
+            </div>
+    </form>
+    </div>
+</div>
