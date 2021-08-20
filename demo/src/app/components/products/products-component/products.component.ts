@@ -16,44 +16,51 @@ export class ProductsComponent implements OnInit, OnDestroy {
   categoryArray: Categories[] = [];
   productArray: Product[] = [];
   filteredArray: Product[] = [];
-  navigationSubscription: any;
+  navigationSubscription: Subscription;
   cartSubscription: Subscription;
+  loginStatusSubscription: Subscription;
   imageURLPrefix: string = '/assets//';
   cartValue: number = 0;
   cartArray: Product[] = [];
   selectedCategoryId: string = '';
   selectedCategoryName = {} as Categories;
   constructor(
-    private httpSrv: HttpService,
-    private route: ActivatedRoute,
-    private cartSrv: CartService,
-    private router: Router,
-    private _authService: AuthService
+    private readonly _httpSrv: HttpService,
+    private readonly _route: ActivatedRoute,
+    private readonly _cartSrv: CartService,
+    private readonly _router: Router,
+    private readonly _authService: AuthService
   ) {
-    this.cartSubscription = this.cartSrv
+    this.cartSubscription = this._cartSrv
       .getCartTotalCount()
       .subscribe((data) => {
         this.cartValue = data;
       });
-    this.navigationSubscription = this.route.params.subscribe((route) => {
+    this.navigationSubscription = this._route.params.subscribe((route) => {
       this.selectedCategoryId = route['id'];
       if (this.selectedCategoryId) {
         this.filterProductsBasedOnId(this.selectedCategoryId);
       } else this.filteredArray = this.productArray;
     });
+    this.loginStatusSubscription = this._authService
+      .isLoggedIn()
+      .subscribe((val: string | null) => {
+        if (!val) {
+          this._authService.routeToDefaultView();
+        }
+      });
   }
 
   ngOnInit(): void {
-    if (!this._authService.isLoggedIn()) this._authService.routeToDefaultView();
     this.getCategoryList();
     this.getProductList();
 
-    this.cartSrv.getCartValue().subscribe((data) => {
+    this._cartSrv.getCartValue().subscribe((data) => {
       this.cartArray = data;
     });
   }
   getCategoryList(): void {
-    this.httpSrv.getCategoriesList().subscribe((data: Categories[]) => {
+    this._httpSrv.getCategoriesList().subscribe((data: Categories[]) => {
       this.categoryArray = data;
       this.categoryArray.sort(
         (a: Categories, b: Categories) => a.order - b.order
@@ -66,7 +73,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
   getProductList(): void {
-    this.httpSrv.getProductsList().subscribe((data: Product[]) => {
+    this._httpSrv.getProductsList().subscribe((data: Product[]) => {
       this.productArray = data;
       this.filteredArray = data;
       if (this.selectedCategoryId)
@@ -80,15 +87,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
   }
 
-  addItemToCart(item: Product): void {
-    this.httpSrv.addProductToCart(item.id).subscribe((res: CartResponse) => {
+  addItemToCart(item: Product, i: number): void {
+    this._httpSrv.addProductToCart(item.id).subscribe((res: CartResponse) => {
       if (res) {
         if (res.response === 'Success') {
           item['quantity'] = item?.quantity ? ++item.quantity : 1;
-          item['totalPrice'] = this.cartSrv.getProductFinalPrice(
+          item['totalPrice'] = this._cartSrv.getProductFinalPrice(
             item.quantity,
             item.price
           );
+          this.filteredArray[i].quantity = item['quantity'];
           const index = this.cartArray.findIndex(
             (val: Product) => val.id === item.id
           );
@@ -97,19 +105,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
           } else {
             this.cartArray.push(item);
           }
-          this.cartSrv.updateCartValue(this.cartArray);
+          this._cartSrv.updateCartValue(this.cartArray);
         }
       }
     });
   }
   selectCategory(id: string): void {
     if (id) {
-      this.router.navigate([`products/${id}`]);
+      this._router.navigate([`products/${id}`]);
     }
   }
 
   ngOnDestroy() {
     this.navigationSubscription.unsubscribe();
     this.cartSubscription.unsubscribe();
+    this.loginStatusSubscription.unsubscribe();
   }
 }

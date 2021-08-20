@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/sevices/cart.service';
 import { CartComponent } from '../../components/cart/cart.component';
@@ -11,34 +11,34 @@ import { AuthService } from 'src/app/sevices/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnDestroy {
   cartSubscription: Subscription;
+  loginStatusSubscription: Subscription;
   showMenuFlag: boolean = false;
   itemCount: number = 0;
-
+  isUserLoggedIn = false;
   @HostListener('window:resize', ['$event'])
   onResize(event?: any) {
-    if (this.showMenuFlag && window.innerWidth > 900)
-      this.showMenuFlag = false;
+    if (this.showMenuFlag && window.innerWidth > 900) this.showMenuFlag = false;
   }
   constructor(
-    private _cartService: CartService,
-    private _modalService: NgbModal,
-    private _authService : AuthService,
-    private _library: FaIconLibrary
+    private readonly _cartService: CartService,
+    private readonly _modalService: NgbModal,
+    private readonly _authService: AuthService,
+    private readonly _library: FaIconLibrary
   ) {
-    this.cartSubscription =    this._cartService.getCartTotalCount().subscribe((val: number) => {
-      this.itemCount = val;
-    })
-    _library.addIcons(faBars);
+    this.cartSubscription = this._cartService
+      .getCartTotalCount()
+      .subscribe((val: number) => {
+        this.itemCount = val;
+      });
+    this._library.addIcons(faBars);
     this.onResize();
-  }
-  ngOnInit(): void {
-    console.log(
-      'Headerrr',
-      localStorage.getItem('email'),
-      localStorage.getItem('password')
-    );
+    this.loginStatusSubscription = this._authService
+      .isLoggedIn()
+      .subscribe((val: string | null) => {
+        this.isUserLoggedIn = val ? true : false;
+      });
   }
 
   toggleMenuList(): void {
@@ -50,7 +50,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       centered: true,
     });
   }
+  signOut() {
+    this._authService.setUserLoggedInStatus(null);
+    this._authService.routeToDefaultView();
+  }
   ngOnDestroy(): void {
     this.cartSubscription.unsubscribe();
+    this.loginStatusSubscription.unsubscribe();
   }
 }

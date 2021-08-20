@@ -29,12 +29,17 @@ img {
 }
 
 .list-content {
-  margin: 3rem 0;
-  width: 65%;
+  align-self: center;
+  width: 50%;
 }
 
 .list-card:nth-child(even) {
   flex-direction: row-reverse;
+}
+ngb-carousel {
+  ::ng-deep li {
+    background-color: #3b3b3b;
+  }
 }
 @media only screen and (max-width: 400px) {
   .list-card {

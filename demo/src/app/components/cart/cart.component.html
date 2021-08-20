@@ -11,9 +11,9 @@
       <div class="product__detail">
         <span class="product__name"> {{item?.name}}</span>
         <div class="product__btn">
-          <a href="javascript:void(0)" class="action_btn" (click)="increment(i)">+</a>
+          <a href="javascript:void(0)" [ngClass]="item?.quantity! >= item?.stock! ? 'action__btn-disabled action_btn' : 'action__btn-active action_btn' " (click)="increment(i)">+</a>
           <span class="product__qty"> {{item?.quantity }}</span>
-          <a href="javascript:void(0)" class="action_btn" (click)="decrement(i)">-</a>
+          <a href="javascript:void(0)" class="action__btn-active action_btn" (click)="decrement(i)">-</a>
           <span class="cross_icon" aria-hidden="true">&times;</span>
           <span> Rs. {{item?.price}} </span>
         </div>
@@ -33,14 +33,14 @@
 </div>
 <div class="modal-footer">
   <p *ngIf="cartArray.length">Promo code can be applied on payment page</p>
-  <button *ngIf="cartArray.length" type="button" class="btn btn-outline-dark checkout__btn" routerLink="/products"
-    (click)="_activeModal.close('Save click')">
+  <button *ngIf="cartArray.length" type="button" class="btn btn-outline-dark checkout__btn"
+    (click)="_activeModal.close('Save click');routeToProducts()">
     <span>Proceed to Checkout</span>
-    <span> Rs.{{totalCartPrice}} &nbsp; &nbsp; ({{totalItemCount}}) &nbsp; &nbsp;></span>
+    <span> Rs.{{totalCartPrice}} &nbsp; &nbsp; ({{totalItemCount}})</span>
   </button>
   <section *ngIf="!cartArray.length">
-    <button type="button" class="btn btn-outline-dark start__btn" (click)="_activeModal.close('Save click')"
-      routerLink="/products">
+    <button type="button" class="btn btn-outline-dark start__btn" (click)="_activeModal.close('Save click');routeToProducts()"
+     >
       <span> Start Shopping</span>
     </button>
   </section>

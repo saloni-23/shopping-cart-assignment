@@ -12,7 +12,7 @@ import { CartResponse } from '../models/response.inteface';
 })
 
 export class HttpService {
-  constructor(private _httpService: HttpClient) { }
+  constructor(private readonly _httpService: HttpClient) { }
 
 
   getBannersList() : Observable<Banner[]> {

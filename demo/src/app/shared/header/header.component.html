@@ -2,20 +2,24 @@
     <nav class="container">
         <ul>
             <li><img src="/assets//static/images/logo.png" alt="logo" class="desktop-logo" routerLink="/"></li>
-            <li><a href="javscript:void(0)" routerLink="/home" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact:true}">Home</a></li>
-            <li><a href="javscript:void(0)" routerLink="/products" routerLinkActive="active">Products</a></li>
+            <li *ngIf="isUserLoggedIn" class="menu__buttons"><a href="javascript:void(0)" routerLink="/home"
+                    routerLinkActive="menu__buttons-active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+            <li *ngIf="isUserLoggedIn" class="menu__buttons"><a href="javascript:void(0)" routerLink="/products"
+                    routerLinkActive="menu__buttons-active">Products</a></li>
         </ul>
-        <div class="login">
-            <ul>
-                <li><a href="javscript:void(0)" routerLink="/login" routerLinkActive="active">Sign In</a></li>
-                <li><a href="javscript:void(0)" routerLink="/register" routerLinkActive="active">Register</a></li>
-            </ul>
-        </div>
-        <div>
-            <button class="cart-btn" (click)="openCart()">
+        <div class="container__cart-login">
+            <div class="container__login">
+                <ul>
+                    <li *ngIf="!isUserLoggedIn"><a href="javascript:void(0)" routerLink="/login"
+                            routerLinkActive="active">Sign In</a></li>
+                    <li *ngIf="isUserLoggedIn"><a href="javascript:void(0)" (click)="signOut()" class="active" routerLinkActive="active">Sign
+                            Out</a></li>
+                    <li><a href="javascript:void(0)" routerLink="/register" routerLinkActive="active">Register</a></li>
+                </ul>
+            </div>
+            <button *ngIf="isUserLoggedIn" class="cart-btn" (click)="openCart()">
                 <img class="cart-logo" src="/assets//static/images/cart.svg" alt="Cart Logo" aria-label="Cart Logo">
-                <span>{{itemCount}} {{itemCount ? 'items' : 'item'}} </span>
+                <span class="cart-itemcount">{{itemCount}} {{itemCount ? 'items' : 'item'}} </span>
             </button>
         </div>
     </nav>
@@ -23,10 +27,10 @@
 <header class="mobile">
     <nav class="container__mobile">
         <img src="/assets//static/images/logo.png" alt="logo" class="desktop-logo" routerLink="/">
-        <div>
+        <div *ngIf="isUserLoggedIn">
             <button class="cart-btn" (click)="openCart()">
                 <img class="cart-logo" src="/assets//static/images/cart.svg" alt="Cart Logo" aria-label="Cart Logo">
-                <span>{{itemCount}} {{itemCount ? 'items' : 'item'}} </span>
+                <span class="cart-itemcount">{{itemCount}} {{itemCount ? 'items' : 'item'}} </span>
             </button>
         </div>
         <button class="menu" aria-label="Menu Icon" class="menu__list-btn" (click)="toggleMenuList()">
@@ -36,8 +40,12 @@
     </nav>
 </header>
 <ul class="menu__list" *ngIf="showMenuFlag">
-    <li><a href="javscript:void(0)" routerLink="/home" routerLinkActive="active">Home</a></li>
-    <li><a href="javscript:void(0)" routerLink="/products" routerLinkActive="active">Products</a></li>
-    <li><a href="javscript:void(0)" routerLink="/login" routerLinkActive="active">Sign In</a></li>
-    <li><a href="javscript:void(0)" routerLink="/register" routerLinkActive="active">Register</a></li>
+    <li *ngIf="isUserLoggedIn"><a href="javascript:void(0)" routerLink="/home" routerLinkActive="active">Home</a></li>
+    <li *ngIf="isUserLoggedIn"><a href="javascript:void(0)" routerLink="/products"
+            routerLinkActive="active">Products</a>
+    </li>
+    <li *ngIf="!isUserLoggedIn"><a href="javascript:void(0)" routerLink="/login" routerLinkActive="active">Sign In</a>
+    </li>
+    <li *ngIf="isUserLoggedIn"><a (click)="signOut()" class="active">Sign Out</a></li>
+    <li><a href="javascript:void(0)" routerLink="/register" routerLinkActive="active">Register</a></li>
 </ul>

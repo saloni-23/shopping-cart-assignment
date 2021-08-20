@@ -17,7 +17,7 @@
         </select>
     </header>
     <main class="product-list">
-        <div class="col-i span_1_of_3" *ngFor="let data of filteredArray">
+        <div class="col-i span_1_of_3" *ngFor="let data of filteredArray;let i = index">
             <div class="product-heading">
                 <h4>{{data?.name}}</h4>
             </div>
@@ -32,11 +32,11 @@
             </div>
             <div class="product-price"><span class="price__text">MRP Rs.{{data?.price}}
                 </span>
-                <button type="submit" class="btn btn-submit price__btn" (click)="addItemToCart(data)">Buy Now @
+                <button [disabled]="data?.quantity == data?.stock" type="submit" class="btn btn-submit price__btn" (click)="addItemToCart(data,i)">Buy Now @
                     Rs.{{data?.price}}</button>
             </div>
             <div class="product-price__tab">
-                <button type="submit" class="btn btn-submit price__btn" (click)="addItemToCart(data)">Buy Now @
+                <button [disabled]="data?.quantity == data?.stock" type="submit" class="btn btn-submit price__btn" (click)="addItemToCart(data,i)">Buy Now @
                     Rs.{{data?.price}}</button>
             </div>
         </div>

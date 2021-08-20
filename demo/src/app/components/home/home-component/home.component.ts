@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Banner } from 'src/app/models/banner.interface';
 import { Categories } from 'src/app/models/categories.interface';
 import { AuthService } from 'src/app/sevices/auth.service';
@@ -10,29 +11,40 @@ import { HttpService } from 'src/app/sevices/http.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   imageURLPrefix: string = '/assets//';
   imageArray: Banner[] = [];
   categoryArray: Categories[] = [];
+  loginStatusSubscription: Subscription;
   constructor(
-    private httpSrv: HttpService,
-    private _authService: AuthService
-  ) {}
+    private readonly _httpSrv: HttpService,
+    private readonly _authService: AuthService
+  ) {
+    this.loginStatusSubscription = this._authService
+      .isLoggedIn()
+      .subscribe((val: string | null) => {
+        if (!val) {
+          this._authService.routeToDefaultView();
+        }
+      });
+  }
 
   ngOnInit(): void {
-    if (!this._authService.isLoggedIn()) this._authService.routeToDefaultView();
     this.getBanners();
     this.getCategoryList();
   }
   getBanners(): void {
-    this.httpSrv.getBannersList().subscribe((res: Banner[]) => {
+    this._httpSrv.getBannersList().subscribe((res: Banner[]) => {
       this.imageArray = res;
     });
   }
 
   getCategoryList(): void {
-    this.httpSrv.getCategoriesList().subscribe((res: Categories[]) => {
+    this._httpSrv.getCategoriesList().subscribe((res: Categories[]) => {
       this.categoryArray = res;
     });
+  }
+  ngOnDestroy(): void {
+    this.loginStatusSubscription.unsubscribe();
   }
 }
